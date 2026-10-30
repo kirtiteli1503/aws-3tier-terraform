@@ -15,3 +15,4 @@
  create mode 100644 terraform/modules/security/main.tf
  create mode 100644 terraform/modules/security/outputs.tf
  create mode 100644 terraform/modules/security/variables.tf
+- Day 4: Flask app with /health, Dockerfile, image v2 pushed to ECR
