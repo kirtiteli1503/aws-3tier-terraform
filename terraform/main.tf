@@ -37,4 +37,26 @@ module "vpc" {
   public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24"]
   enable_nat_gateway   = var.enable_nat_gateway
-}   
+}
+
+module "security" {
+  source = "./modules/security"
+
+  name   = "3tier"
+  vpc_id = module.vpc.vpc_id
+}
+
+module "ecr" {
+  source = "./modules/ecr"
+
+  name = "3tier-app"
+}
+
+module "alb" {
+  source = "./modules/alb"
+
+  name              = "3tier"
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  alb_sg_id         = module.security.alb_sg_id
+}
